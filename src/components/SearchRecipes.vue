@@ -13,7 +13,7 @@
                         @click="getRecipes()"
                         >Search<i
                             class="material-icons right">search</i></button>
-                    <a id="refine-btn" class="btn-flat orange-text text-lighten-1">Refine</a>
+                    <a id="refine-btn" class="btn-flat orange-text text-lighten-1" @click="toggleShowRefineOptions()">Refine</a>
                 </div>
 
                 <!-- <p>
@@ -32,7 +32,7 @@
 
             </form>
         </div>
-        <div id="more-options" class="row hide">
+        <div id="more-options" class="row" v-show="showRefineOptions">
             <div class="input-field col s6 m4">
                 <select class="col">
                     <option value="">None</option>
@@ -48,74 +48,56 @@
         <!-- End Search Bar -->
 
         <!-- hide -->
-        <div id="results" class="row hide">
+        <div id="results" class="row">
             <div class="row">
                 <h3 class="center-align font2 orange-text text-lighten-1">Recipes</h3>
             </div>
 
             <!-- List of meals -->
             <div id="recipe-list" class="col s12 m12 l6">
-
                 <div id="recipe-area" class="collection text-green">
+                    <a v-for="recipe in recipes"
+                    :key="recipe.id" href="#!"
+                    :id="recipe.id"
+                    @click="getRecipe(recipe.id)"
+                    class="listed-food-recipe collection-item">
+                        {{recipe.title}}
+                    </a>
                 </div>
             </div>
             <!-- End Meal List -->
 
-            <!-- Recipe Card -->
-            <!-- hide -->
-            <div id="recipe-card" class="col m12 l6 hide" data-id="">
-                <div class="card">
-                    <div class="card-image">
-                        <img id="recipe-image" class="food-image" src="" alt="">
-                        <a href="#!" class="favorite-btn btn-floating halfway-fab" data-faved="false">
-                            <i class="material-icons">favorite</i>
-                        </a>
-                    </div>
-                    <div class="card-content">
-                        <span class="food-title card-title light-green-text text-darken-2">Rice Pilaff</span>
-                        <h6 class="orange-text text-lighten-1">Diet Info</h6>
-                        <p class="food-summary grey-text"></p>
-                        <div class="food-ingredients hide" data-state="hidden">
-                            <h6 class="card-title light-green-text">Ingredients</h6>
-                            <table class="ingredients">
-                                <tr>
-                                </tr>
-                            </table>
-                        </div>
-                        <div class="food-instructions hide" data-state="hidden">
-                            <h6 class="card-title light-green-text">Instructions</h6>
-                            <div class="instructions"></div>
-                        </div>
-                    </div>
-                    <div class="card-action">
-                        <a href="#!" class="ingredients-btn">Ingredients</a>
-                        <a href="#!" class="instructions-btn">Instructions</a>
-                    </div>
-                </div>
-            </div>
-            <!-- End recipe Card -->
+            <RecipeCard
+                v-if="currentRecipe"
+                :recipe="currentRecipe"
+            />
         </div>
     </div>
 </template>
 
 <script>
 import axios from 'axios'
+import RecipeCard from './RecipeCard.vue'
 export default {
     name: 'SearchRecipes',
+    components: {
+        RecipeCard
+    },
     props: {
         msg: String
     },
     data() {
         return {
+            showRefineOptions: false,
             search: '',
             refine: '',
+            currentRecipe: null,
             recipes: []
         }
     },
     methods: {
         async getRecipes() {
             event.preventDefault()
-            console.log('Hi')
             var queryURL = `https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/search?query=${this.search}&diet=${this.refine}`;
             const config = {
                 headers: {
@@ -129,6 +111,26 @@ export default {
             } catch (error) {
                 console.log('N: ', this.recipes);
             }
+        },
+        async getRecipe(id) {
+            // event.preventDefault()
+            var queryURL = `https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/${id}/information`;
+            const config = {
+                headers: {
+                    "X-RapidAPI-Key": process.env.VUE_APP_SPOONACULAR_API_KEY
+                }
+            }
+            try {
+                var res = await axios.get(queryURL, config)
+                this.currentRecipe = res?.data
+                console.log('Y: ', this.currentRecipe);
+            } catch (error) {
+                console.log('N: ', this.currentRecipe);
+            }
+        },
+        toggleShowRefineOptions() {
+            console.log('Click')
+            this.showRefineOptions = !this.showRefineOptions
         }
     },
 }

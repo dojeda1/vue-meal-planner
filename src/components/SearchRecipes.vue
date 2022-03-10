@@ -6,10 +6,12 @@
         <div class="row section">
             <form id="search-bar" action="">
                 <div class="input-field">
-                    <input id="food-item" type="text">
+                    <input id="food-item" type="text" v-model="search">
                     <label for="food-item">Enter Ingredient Here</label>
                     <button id="search-btn" type="submit"
-                        class="btn right light-green waves-effect waves-light valign-wrapper">Search<i
+                        class="btn right light-green waves-effect waves-light valign-wrapper"
+                        @click="getRecipes()"
+                        >Search<i
                             class="material-icons right">search</i></button>
                     <a id="refine-btn" class="btn-flat orange-text text-lighten-1">Refine</a>
                 </div>
@@ -97,11 +99,38 @@
 </template>
 
 <script>
+import axios from 'axios'
 export default {
     name: 'SearchRecipes',
     props: {
         msg: String
-    }
+    },
+    data() {
+        return {
+            search: '',
+            refine: '',
+            recipes: []
+        }
+    },
+    methods: {
+        async getRecipes() {
+            event.preventDefault()
+            console.log('Hi')
+            var queryURL = `https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/search?query=${this.search}&diet=${this.refine}`;
+            const config = {
+                headers: {
+                    "X-RapidAPI-Key": process.env.VUE_APP_SPOONACULAR_API_KEY
+                }
+            }
+            try {
+                var res = await axios.get(queryURL, config)
+                this.recipes = res?.data?.results
+                console.log('Y: ', this.recipes);
+            } catch (error) {
+                console.log('N: ', this.recipes);
+            }
+        }
+    },
 }
 </script>
 

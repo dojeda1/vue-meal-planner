@@ -36,7 +36,6 @@ export default {
     },
     methods: {
         async getQuote() {
-            console.log('Hi')
             const queryURL = "https://healthruwords.p.rapidapi.com/v1/quotes/?t=Motivational&maxR=1&size=medium"
             const config = {
                 headers: {
@@ -46,9 +45,8 @@ export default {
             try {
                 var res = await axios.get(queryURL, config)
                 this.inspireBlock = res?.data[0]?.media
-                console.log('Y: ', this.inspireBlock);
             } catch (error) {
-                console.log('N: ', this.inspireBlock);
+                console.warn('HealThruWords call failed.');
             }
         }
     },

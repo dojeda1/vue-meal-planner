@@ -23,6 +23,9 @@ export default {
     SearchRecipes,
     HealThruWords,
     // HelloWorld
+  },
+  mounted() {
+    console.log('A: ', process.env.VUE_APP_SECRET)
   }
 }
 </script>

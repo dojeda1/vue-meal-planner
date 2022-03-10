@@ -1,6 +1,6 @@
 <template>
     <!-- HeroBanner -->
-    <div ref="parallax" class="parallax-container center valign-wrapper">
+    <div ref="parallax" class="parallax-container center valign-wrapper" :style="{'background-image' : `url(${image})`}">
         <div class="container">
             <div class="row">
                 <div class="col s12 white-text">
@@ -24,7 +24,7 @@ export default {
         }
     },
     mounted() {
-        this.$refs.parallax.parallax();
+        // this.$refs.parallax.parallax();
     }
 }
 </script>
@@ -35,5 +35,7 @@ export default {
         height: 300px;
         background-color: gray;
         width: 100%;
+        background-size: cover;
+        background-position: center;
     }
 </style>

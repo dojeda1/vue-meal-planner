@@ -48,7 +48,7 @@
         <!-- End Search Bar -->
 
         <!-- hide -->
-        <div id="results" class="row">
+        <div id="results" class="row" v-show="recipes">
             <div class="row">
                 <h3 class="center-align font2 orange-text text-lighten-1">Recipes</h3>
             </div>
@@ -59,6 +59,7 @@
                     <a v-for="recipe in recipes"
                     :key="recipe.id" href="#!"
                     :id="recipe.id"
+                    :class="{active: activeItem(recipe.id)}"
                     @click="getRecipe(recipe.id)"
                     class="listed-food-recipe collection-item">
                         {{recipe.title}}
@@ -92,7 +93,7 @@ export default {
             search: '',
             refine: '',
             currentRecipe: null,
-            recipes: []
+            recipes: null
         }
     },
     methods: {
@@ -108,6 +109,7 @@ export default {
                 var res = await axios.get(queryURL, config)
                 this.recipes = res?.data?.results
                 console.log('Y: ', this.recipes);
+                this.selectFirstItem()
             } catch (error) {
                 console.log('N: ', this.recipes);
             }
@@ -129,8 +131,16 @@ export default {
             }
         },
         toggleShowRefineOptions() {
-            console.log('Click')
             this.showRefineOptions = !this.showRefineOptions
+        },
+        activeItem(id) {
+            return this?.currentRecipe?.id == id
+        },
+        selectFirstItem() {
+            const id = this?.recipes[0]?.id
+            if (id) {
+                this.getRecipe(id)
+            }
         }
     },
 }

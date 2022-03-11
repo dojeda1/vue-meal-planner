@@ -12,7 +12,7 @@
                 <span class="food-title card-title light-green-text text-darken-2">{{recipe.title}}</span>
                 <h6 class="orange-text text-lighten-1">Diet Info</h6>
                 <p class="food-summary grey-text">{{recipe.diets.join(', ')}}</p>
-                <div class="food-ingredients">
+                <div class="food-ingredients" v-show="showIngredients">
                     <h6 class="card-title light-green-text">Ingredients</h6>
                     <table class="ingredients">
                         <tr v-for="ing in ingredients" :key="ing.id">
@@ -23,20 +23,22 @@
                         </tr>
                     </table>
                 </div>
-                <div class="food-instructions">
+                <div class="food-instructions" v-show="showInstructions">
                     <h6 class="card-title light-green-text">Instructions</h6>
                     <div class="instructions">
-                        <ol>
+                        <ol v-if="instructions">
                             <li v-for="step in instructions" :key="step.number">
                                 {{step.step}}
                             </li>
                         </ol>
+                        <p v-else-if="recipe.instructions">{{recipe.instructions}}</p>
+                        <p v-else>N/A</p>
                     </div>
                 </div>
             </div>
             <div class="card-action">
-                <a href="#!" class="ingredients-btn">Ingredients</a>
-                <a href="#!" class="instructions-btn">Instructions</a>
+                <a href="#!" class="ingredients-btn" @click="toggleShowIngredients">Ingredients</a>
+                <a href="#!" class="instructions-btn" @click="toggleShowInstructions">Instructions</a>
             </div>
         </div>
 
@@ -55,7 +57,8 @@ export default {
     },
     data() {
         return {
-            logo: '/images/white-logo.png'
+            showIngredients: false,
+            showInstructions: false
         }
     },
     computed: {
@@ -64,6 +67,14 @@ export default {
         },
         instructions() {
             return this.recipe?.analyzedInstructions[0]?.steps || null
+        }
+    },
+    methods: {
+        toggleShowInstructions() {
+            this.showInstructions = !this.showInstructions
+        },
+        toggleShowIngredients() {
+            this.showIngredients = !this.showIngredients
         }
     }
 }

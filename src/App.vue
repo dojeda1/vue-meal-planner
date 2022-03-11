@@ -1,8 +1,6 @@
 <template>
   <Nav/>
-  <HeroBanner/>
-  <SearchRecipes/>
-  <HealThruWords/>
+  <router-view/>
   <div class="spacer"/>
   <!-- <img alt="Vue logo" src="./assets/logo.png"> -->
   <!-- <HelloWorld msg="Welcome to Your Vue.js App"/> -->
@@ -10,19 +8,12 @@
 
 <script>
 import Nav from './components/Nav.vue'
-import HeroBanner from './components/HeroBanner.vue'
-import SearchRecipes from './components/SearchRecipes.vue'
-import HealThruWords from './components/HealThruWords.vue'
 // import HelloWorld from './components/HelloWorld.vue'
 
 export default {
   name: 'App',
   components: {
-    Nav,
-    HeroBanner,
-    SearchRecipes,
-    HealThruWords,
-    // HelloWorld
+    Nav
   },
   mounted() {
     console.log('A: ', process.env.VUE_APP_SECRET)

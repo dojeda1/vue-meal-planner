@@ -15,21 +15,6 @@
                             class="material-icons right">search</i></button>
                     <a id="refine-btn" class="btn-flat orange-text text-lighten-1" @click="toggleShowRefineOptions()">Refine</a>
                 </div>
-
-                <!-- <p>
-                        <label>
-                            <input type="checkbox" id="vegan">
-                            <span>vegan</span>
-                        </label>
-                    </p>
-
-                    <p>
-                        <label>
-                            <input type="checkbox">
-                            <span>Paleo</span>
-                        </label>
-                    </p> -->
-
             </form>
         </div>
         <div id="more-options" class="row" v-show="showRefineOptions">

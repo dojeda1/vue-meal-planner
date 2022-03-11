@@ -4,7 +4,11 @@
         <div class="card">
             <div class="card-image">
                 <img id="recipe-image" class="food-image" :src="recipe.image" alt="">
-                <a href="#!" class="favorite-btn btn-floating halfway-fab" data-faved="false">
+                <a 
+                href="#!" 
+                class="favorite-btn btn-floating halfway-fab" 
+                :class="favedClass"
+                @click="toggleFaved">
                     <i class="material-icons">favorite</i>
                 </a>
             </div>
@@ -58,7 +62,8 @@ export default {
     data() {
         return {
             showIngredients: false,
-            showInstructions: false
+            showInstructions: false,
+            faved: false
         }
     },
     computed: {
@@ -67,6 +72,18 @@ export default {
         },
         instructions() {
             return this.recipe?.analyzedInstructions[0]?.steps || null
+        },
+        favedClass() {
+            if (this.faved) {
+                return {
+                    pink: true
+                }
+            } else {
+                return {
+                    grey: true,
+                    pulse: true
+                }
+            }
         }
     },
     methods: {
@@ -75,6 +92,9 @@ export default {
         },
         toggleShowIngredients() {
             this.showIngredients = !this.showIngredients
+        },
+        toggleFaved() {
+            this.faved = !this.faved
         }
     }
 }

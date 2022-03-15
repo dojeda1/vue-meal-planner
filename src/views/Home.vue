@@ -1,5 +1,7 @@
 <template>
-    <HeroBanner/>
+    <HeroBanner
+    :title="'Eat Healthy, Live Healthy'"
+    :height="'300px'"/>
     <SearchRecipes/>
     <HealThruWords/>
 </template>

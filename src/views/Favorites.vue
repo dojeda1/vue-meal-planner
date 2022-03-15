@@ -1,12 +1,18 @@
 <template>
-    <h1>Favorites</h1>
+    <HeroBanner
+    :title="'My Favorites'"
+    :height="'150px'"/>
 </template>
 
 <script>
+import HeroBanner from '../components/HeroBanner.vue'
 // import HelloWorld from './components/HelloWorld.vue'
 
 export default {
-    name: 'Favorites'
+    name: 'Favorites',
+    components: {
+        HeroBanner
+    },
 }
 </script>
 

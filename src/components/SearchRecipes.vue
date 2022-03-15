@@ -41,8 +41,8 @@
             <!-- List of meals -->
             <div id="recipe-list" class="col s12 m12 l6">
                 <div id="recipe-area" class="collection text-green">
-                    <a v-for="recipe in recipes"
-                    :key="recipe.id" href="#!"
+                    <a v-for="(recipe, index) in recipes"
+                    :key="index" href="#!"
                     :id="recipe.id"
                     :class="{active: activeItem(recipe.id)}"
                     @click="getRecipe(recipe.id)"

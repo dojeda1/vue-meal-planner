@@ -51,6 +51,8 @@
 </template>
 
 <script>
+import { addRecipe, deleteRecipe } from '../firebase.js'
+
 export default {
     name: 'RecipeCard',
     props: {
@@ -94,7 +96,14 @@ export default {
             this.showIngredients = !this.showIngredients
         },
         toggleFaved() {
-            this.faved = !this.faved
+            const id = this.recipe.id.toString()
+            if (!this.faved) {
+                addRecipe(id, this.recipe)
+                this.faved = true
+            } else {
+                deleteRecipe(id)
+                this.faved = false
+            }
         }
     }
 }

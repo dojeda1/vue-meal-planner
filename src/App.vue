@@ -41,4 +41,9 @@ export default {
 .font3 {
   font-family: 'Rock Salt', cursive;
 }
+
+.font4 {
+    font-family: 'Permanent Marker', cursive;
+    font-size: 150%;
+}
 </style>

@@ -33,14 +33,13 @@ export default {
                 console.log('res: ', res);
                 this.joke = res?.data?.text
                 console.log('Y: ', this.joke);
-                this.selectFirstItem()
             } catch (error) {
                 console.log('N: ', this.joke);
             }
         }
     },
     mounted() {
-        this.getJoke()
+        // this.getJoke()
     }
 }
 </script>

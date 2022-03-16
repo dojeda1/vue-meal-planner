@@ -5,12 +5,24 @@ const routes = [
     {
         path: '/',
         name: 'Home',
-        component: Home
+        component: Home,
+        props: {
+            idList: {
+                type: Array,
+                default: () => []
+            }
+        },
     },
     {
         path: '/favorites',
         name: 'About',
-        component: () => import('../views/Favorites.vue')
+        component: () => import('../views/Favorites.vue'),
+        props: {
+            idList: {
+                type: Array,
+                default: () => []
+            }
+        },
     }
 ]
 

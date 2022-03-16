@@ -33,14 +33,13 @@ export default {
                 console.log('res: ', res);
                 this.trivia = res?.data?.text
                 console.log('Y: ', this.trivia);
-                this.selectFirstItem()
             } catch (error) {
                 console.log('N: ', this.trivia);
             }
         }
     },
     mounted() {
-        this.getTrivia()
+        // this.getTrivia()
     }
 }
 </script>

@@ -52,11 +52,13 @@
                 </div>
             </div>
             <!-- End Meal List -->
-
-            <RecipeCard
-                v-if="currentRecipe"
-                :recipe="currentRecipe"
-            />
+            <div class="col m12 l6" data-id="">
+                <RecipeCard
+                    v-if="currentRecipe"
+                    :recipe="currentRecipe"
+                    :idList="idList"
+                />
+            </div>
         </div>
     </div>
 </template>
@@ -70,7 +72,11 @@ export default {
         RecipeCard
     },
     props: {
-        msg: String
+        msg: String,
+        idList: {
+            type: Array,
+            default: () => []
+        }
     },
     data() {
         return {

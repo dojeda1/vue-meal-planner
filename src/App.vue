@@ -1,6 +1,6 @@
 <template>
   <Nav/>
-  <router-view/>
+  <router-view :idList="idList"/>
   <div class="spacer"/>
   <!-- <img alt="Vue logo" src="./assets/logo.png"> -->
   <!-- <HelloWorld msg="Welcome to Your Vue.js App"/> -->
@@ -8,6 +8,7 @@
 
 <script>
 import Nav from './components/Nav.vue'
+import { useLoadRecipes } from './firebase'
 // import HelloWorld from './components/HelloWorld.vue'
 
 export default {
@@ -15,8 +16,28 @@ export default {
   components: {
     Nav
   },
-  mounted() {
-    console.log('A: ', process.env.VUE_APP_SECRET)
+  data() {
+    return {
+      favorites: [],
+      idList: []
+    }
+  },
+  created() {
+    const $this = this
+    this.favorites = useLoadRecipes(function() {
+        // console.log('this.favorites: ', $this.favorites);
+        $this.getIds()
+        // console.log('favsIDs:', $this.idList)
+    })
+  },
+  methods: {
+    getIds() {
+      const ids = []
+      this.favorites.forEach(fav => {
+          ids.push(fav.id)
+      })
+      this.idList = ids
+    }
   }
 }
 </script>

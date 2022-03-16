@@ -21,11 +21,12 @@ export const db = firebaseApp.firestore()
 const recipeCollection = db.collection('recipes')
 
 export const addRecipe = (id, recipe) => {
-    recipeCollection.doc(id).set(recipe).then(doc => {
-        alert('Data added ' + doc.id)
-    }).catch(e => {
-        console.log('err:', e)
-    })
+    recipeCollection.doc(id).set(recipe)
+        .then(doc => {
+            alert('Data added ' + doc.id)
+        }).catch(e => {
+            console.log('err:', e)
+        })
 }
 
 // export const getRecipe = async id => {
@@ -34,19 +35,20 @@ export const addRecipe = (id, recipe) => {
 // }
 
 export const deleteRecipe = id => {
-    console.log('remove REcipe')
-    // return recipeCollection.doc(id).delete()
-    recipeCollection.doc(id).delete().then(doc => {
-        alert('Data deleted ' + doc.id)
-    }).catch(e => {
-        console.log('err:', e)
-    })
+    recipeCollection.doc(id).delete()
+        .then(doc => {
+            alert('Data deleted ' + doc.id)
+        }).catch(e => {
+            console.log('err:', e)
+        })
 }
 
-export const useLoadRecipes = () => {
+export const useLoadRecipes = (cb) => {
     const recipes = ref([])
     const close = recipeCollection.onSnapshot(snapshot => {
+        console.log('Snapshot Recipes')
         recipes.value = snapshot.docs.map(doc => ({id: doc.id, ...doc.data() }))
+        cb()
     })
     onUnmounted(close)
     return recipes

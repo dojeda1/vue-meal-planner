@@ -8,12 +8,12 @@
                 <i class="material-icons">menu</i>
             </a>
             <ul class="right hide-on-med-and-down">
-                <li><a href="./index.html">Home</a></li>
-                <li><a href="./favorites.html">Favorites</a></li>
+                <li><a href="/">Home</a></li>
+                <li><a href="/favorites">Favorites</a></li>
                 <li><a href="#">Calendar</a></li>
-                <li><a href="#login" id="navbar-login-top" class="modal-trigger valign-wrapper">Login
+                <!-- <li><a href="#login" id="navbar-login-top" class="modal-trigger valign-wrapper">Login
                         <i class="material-icons right">person</i></a>
-                </li>
+                </li> -->
             </ul>
         </div>
     </nav>

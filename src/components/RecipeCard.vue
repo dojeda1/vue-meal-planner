@@ -1,59 +1,66 @@
 <template>
     <!-- Recipe Card -->
-    <div class="col m12 l6" data-id="">
-        <div class="card">
-            <div class="card-image">
-                <img id="recipe-image" class="food-image" :src="recipe.image" alt="">
-                <a href="#!" class="favorite-btn btn-floating halfway-fab" data-faved="false">
-                    <i class="material-icons">favorite</i>
-                </a>
+    <div class="card">
+        <div class="card-image">
+            <img id="recipe-image" class="food-image" :src="image" alt="">
+            <a 
+            href="#!" 
+            class="favorite-btn btn-floating halfway-fab" 
+            :class="favedClass"
+            @click="toggleFaved">
+                <i class="material-icons">favorite</i>
+            </a>
+        </div>
+        <div class="card-content">
+            <span class="food-title card-title light-green-text text-darken-2">{{title}}</span>
+            <h6 class="orange-text text-lighten-1">Diet Info</h6>
+            <p class="food-summary grey-text">{{diets}}</p>
+            <div class="food-ingredients" v-show="showIngredients">
+                <h6 class="card-title light-green-text">Ingredients</h6>
+                <table class="ingredients">
+                    <tr v-for="ing in ingredients" :key="ing.id">
+                        <td>{{ing.original}}</td>
+                        <!-- <td>{{ing.name}}</td>
+                        <td>{{ing.measures.us.amount}}</td>
+                        <td>{{ing.measures.us.unitLong}}</td> -->
+                    </tr>
+                </table>
             </div>
-            <div class="card-content">
-                <span class="food-title card-title light-green-text text-darken-2">{{recipe.title}}</span>
-                <h6 class="orange-text text-lighten-1">Diet Info</h6>
-                <p class="food-summary grey-text">{{recipe.diets.join(', ')}}</p>
-                <div class="food-ingredients" v-show="showIngredients">
-                    <h6 class="card-title light-green-text">Ingredients</h6>
-                    <table class="ingredients">
-                        <tr v-for="ing in ingredients" :key="ing.id">
-                            <td>{{ing.original}}</td>
-                            <!-- <td>{{ing.name}}</td>
-                            <td>{{ing.measures.us.amount}}</td>
-                            <td>{{ing.measures.us.unitLong}}</td> -->
-                        </tr>
-                    </table>
+            <div class="food-instructions" v-show="showInstructions">
+                <h6 class="card-title light-green-text">Instructions</h6>
+                <div class="instructions">
+                    <!-- <p>TYPE:{{typeof instructions}}</p> -->
+                    <ol v-if="typeof instructions == 'object'">
+                        <li v-for="(step, index) in instructions" :key="index">
+                            {{step.step}}
+                        </li>
+                    </ol>
+                    <p v-else-if="instructions">{{instructions}}</p>
                 </div>
-                <div class="food-instructions" v-show="showInstructions">
-                    <h6 class="card-title light-green-text">Instructions</h6>
-                    <div class="instructions">
-                        <ol v-if="instructions">
-                            <li v-for="step in instructions" :key="step.number">
-                                {{step.step}}
-                            </li>
-                        </ol>
-                        <p v-else-if="recipe.instructions">{{recipe.instructions}}</p>
-                        <p v-else>N/A</p>
-                    </div>
-                </div>
-            </div>
-            <div class="card-action">
-                <a href="#!" class="ingredients-btn" @click="toggleShowIngredients">Ingredients</a>
-                <a href="#!" class="instructions-btn" @click="toggleShowInstructions">Instructions</a>
             </div>
         </div>
-
+        <div class="card-action">
+            <a href="#!" class="ingredients-btn" @click="toggleShowIngredients">Ingredients</a>
+            <a href="#!" class="instructions-btn" @click="toggleShowInstructions">Instructions</a>
+        </div>
     </div>
     <!-- End recipe Card -->
 </template>
 
 <script>
+import { addRecipe, deleteRecipe } from '../firebase.js'
+
 export default {
     name: 'RecipeCard',
     props: {
         recipe: {
             type: Object,
             default: () => {}
-        }
+        },
+        idList: {
+            type: Array,
+            default: () => []
+        },
     },
     data() {
         return {
@@ -62,11 +69,39 @@ export default {
         }
     },
     computed: {
+        id() {
+            return this.recipe?.id || null
+        },
+        title() {
+            return this.recipe?.title || null
+        },
+        image() {
+            return this.recipe?.image || null
+        },
+        diets() {
+            const diet = this.recipe?.diets || null
+            return diet ? diet.join(', ') : 'N/A'
+        },
         ingredients() {
             return this.recipe?.extendedIngredients || null
         },
         instructions() {
-            return this.recipe?.analyzedInstructions[0]?.steps || null
+            return this.recipe?.analyzedInstructions[0]?.steps || this.recipe?.instructions || 'N/A'
+        },
+        faved() {
+            return this.idList.includes(this.id)
+        },
+        favedClass() {
+            if (this.faved) {
+                return {
+                    pink: true
+                }
+            } else {
+                return {
+                    grey: true,
+                    pulse: true
+                }
+            }
         }
     },
     methods: {
@@ -75,7 +110,18 @@ export default {
         },
         toggleShowIngredients() {
             this.showIngredients = !this.showIngredients
+        },
+        toggleFaved() {
+            const id = this.id.toString()
+            if (!this.faved) {
+                addRecipe(id, this.recipe)
+            } else {
+                deleteRecipe(id)
+            }
         }
+    },
+    mounted() {
+        console.log('Rec:', this.recipe)
     }
 }
 </script>

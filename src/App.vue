@@ -1,8 +1,6 @@
 <template>
   <Nav/>
-  <HeroBanner/>
-  <SearchRecipes/>
-  <HealThruWords/>
+  <router-view :idList="idList" :favorites="favorites"/>
   <div class="spacer"/>
   <!-- <img alt="Vue logo" src="./assets/logo.png"> -->
   <!-- <HelloWorld msg="Welcome to Your Vue.js App"/> -->
@@ -10,22 +8,36 @@
 
 <script>
 import Nav from './components/Nav.vue'
-import HeroBanner from './components/HeroBanner.vue'
-import SearchRecipes from './components/SearchRecipes.vue'
-import HealThruWords from './components/HealThruWords.vue'
+import { useLoadRecipes } from './firebase'
 // import HelloWorld from './components/HelloWorld.vue'
 
 export default {
   name: 'App',
   components: {
-    Nav,
-    HeroBanner,
-    SearchRecipes,
-    HealThruWords,
-    // HelloWorld
+    Nav
   },
-  mounted() {
-    console.log('A: ', process.env.VUE_APP_SECRET)
+  data() {
+    return {
+      favorites: [],
+      idList: []
+    }
+  },
+  created() {
+    const $this = this
+    this.favorites = useLoadRecipes(function() {
+        // console.log('this.favorites: ', $this.favorites);
+        $this.getIds()
+        // console.log('favsIDs:', $this.idList)
+    })
+  },
+  methods: {
+    getIds() {
+      const ids = []
+      this.favorites.forEach(fav => {
+          ids.push(fav.id)
+      })
+      this.idList = ids
+    }
   }
 }
 </script>
@@ -49,5 +61,10 @@ export default {
 
 .font3 {
   font-family: 'Rock Salt', cursive;
+}
+
+.font4 {
+    font-family: 'Permanent Marker', cursive;
+    font-size: 150%;
 }
 </style>

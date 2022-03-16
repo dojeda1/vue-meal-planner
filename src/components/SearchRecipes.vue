@@ -15,21 +15,6 @@
                             class="material-icons right">search</i></button>
                     <a id="refine-btn" class="btn-flat orange-text text-lighten-1" @click="toggleShowRefineOptions()">Refine</a>
                 </div>
-
-                <!-- <p>
-                        <label>
-                            <input type="checkbox" id="vegan">
-                            <span>vegan</span>
-                        </label>
-                    </p>
-
-                    <p>
-                        <label>
-                            <input type="checkbox">
-                            <span>Paleo</span>
-                        </label>
-                    </p> -->
-
             </form>
         </div>
         <div id="more-options" class="row" v-show="showRefineOptions">
@@ -56,8 +41,8 @@
             <!-- List of meals -->
             <div id="recipe-list" class="col s12 m12 l6">
                 <div id="recipe-area" class="collection text-green">
-                    <a v-for="recipe in recipes"
-                    :key="recipe.id" href="#!"
+                    <a v-for="(recipe, index) in recipes"
+                    :key="index" href="#!"
                     :id="recipe.id"
                     :class="{active: activeItem(recipe.id)}"
                     @click="getRecipe(recipe.id)"
@@ -67,11 +52,13 @@
                 </div>
             </div>
             <!-- End Meal List -->
-
-            <RecipeCard
-                v-if="currentRecipe"
-                :recipe="currentRecipe"
-            />
+            <div class="col m12 l6">
+                <RecipeCard
+                    v-if="currentRecipe"
+                    :recipe="currentRecipe"
+                    :idList="idList"
+                />
+            </div>
         </div>
     </div>
 </template>
@@ -85,7 +72,11 @@ export default {
         RecipeCard
     },
     props: {
-        msg: String
+        msg: String,
+        idList: {
+            type: Array,
+            default: () => []
+        }
     },
     data() {
         return {

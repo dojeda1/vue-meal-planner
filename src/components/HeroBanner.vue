@@ -1,10 +1,10 @@
 <template>
     <!-- HeroBanner -->
-    <div ref="parallax" class="parallax-container center valign-wrapper" :style="{'background-image' : `url(${image})`}">
+    <div ref="parallax" class="parallax-container center valign-wrapper" :style="compStyle">
         <div class="container">
             <div class="row">
                 <div class="col s12 white-text">
-                    <h2 class="white-text font3">Eat Healthy, Live Healthy</h2>
+                    <h2 class="white-text font3">{{title}}</h2>
                 </div>
             </div>
         </div>
@@ -16,11 +16,20 @@
 export default {
     name: 'HeroBanner',
     props: {
-        msg: String
+        title: String,
+        height: String
     },
     data() {
         return {
             image: '/images/veggies-wallpaper.jpeg'
+        }
+    },
+    computed: {
+        compStyle() {
+            return {
+                    'background-image' : `url(${this.image})`,
+                    height: this.height
+                }
         }
     },
     mounted() {

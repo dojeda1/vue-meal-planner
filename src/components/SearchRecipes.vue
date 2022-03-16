@@ -52,7 +52,7 @@
                 </div>
             </div>
             <!-- End Meal List -->
-            <div class="col m12 l6" data-id="">
+            <div class="col m12 l6">
                 <RecipeCard
                     v-if="currentRecipe"
                     :recipe="currentRecipe"

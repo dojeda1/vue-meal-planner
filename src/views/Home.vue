@@ -16,16 +16,16 @@ import HealThruWords from '../components/HealThruWords.vue'
 
 export default {
     name: 'Home',
+    components: {
+        HeroBanner,
+        SearchRecipes,
+        HealThruWords,
+    },
     props: {
         idList: {
             type: Array,
             default: () => []
         }
-    },
-    components: {
-        HeroBanner,
-        SearchRecipes,
-        HealThruWords,
     },
     mounted() {
         console.log('--&--', this.idList)

@@ -29,13 +29,13 @@
             <div class="food-instructions" v-show="showInstructions">
                 <h6 class="card-title light-green-text">Instructions</h6>
                 <div class="instructions">
-                    <ol v-if="instructions.length">
-                        <li v-for="step in instructions" :key="step.number">
+                    <!-- <p>TYPE:{{typeof instructions}}</p> -->
+                    <ol v-if="typeof instructions == 'object'">
+                        <li v-for="(step, index) in instructions" :key="index">
                             {{step.step}}
                         </li>
                     </ol>
                     <p v-else-if="instructions">{{instructions}}</p>
-                    <p v-else>N/A</p>
                 </div>
             </div>
         </div>
@@ -79,13 +79,14 @@ export default {
             return this.recipe?.image || null
         },
         diets() {
-            return this.recipe?.diets.join(', ') || null
+            const diet = this.recipe?.diets || null
+            return diet ? diet.join(', ') : 'N/A'
         },
         ingredients() {
             return this.recipe?.extendedIngredients || null
         },
         instructions() {
-            return this.recipe?.analyzedInstructions[0]?.steps || this.recipe?.instructions || []
+            return this.recipe?.analyzedInstructions[0]?.steps || this.recipe?.instructions || 'N/A'
         },
         faved() {
             return this.idList.includes(this.id)
@@ -118,6 +119,9 @@ export default {
                 deleteRecipe(id)
             }
         }
+    },
+    mounted() {
+        console.log('Rec:', this.recipe)
     }
 }
 </script>

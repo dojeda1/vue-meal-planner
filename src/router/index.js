@@ -21,6 +21,10 @@ const routes = [
             idList: {
                 type: Array,
                 default: () => []
+            },
+            favorites: {
+                type: Array,
+                default: () => []
             }
         },
     }

@@ -1,6 +1,6 @@
 <template>
   <Nav/>
-  <router-view :idList="idList"/>
+  <router-view :idList="idList" :favorites="favorites"/>
   <div class="spacer"/>
   <!-- <img alt="Vue logo" src="./assets/logo.png"> -->
   <!-- <HelloWorld msg="Welcome to Your Vue.js App"/> -->

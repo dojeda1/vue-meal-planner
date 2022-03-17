@@ -27,6 +27,21 @@ const routes = [
                 default: () => []
             }
         },
+    },
+    {
+        path: '/calendar',
+        name: 'Calendar',
+        component: () => import('../views/Calendar.vue'),
+        props: {
+            idList: {
+                type: Array,
+                default: () => []
+            },
+            favorites: {
+                type: Array,
+                default: () => []
+            }
+        },
     }
 ]
 

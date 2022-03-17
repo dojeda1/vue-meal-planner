@@ -4,13 +4,13 @@
         <div class="container">
             <a href="./index.html" class="brand-logo"><img :src="logo" id="logo"
                     class="left valign-wrapper"><span class="hide-on-med-and-down font2">Meal Planner</span></a>
-            <a href="#!" class="sidenav-trigger right" data-target="mobile-links">
+            <a class="sidenav-trigger right" data-target="mobile-links">
                 <i class="material-icons">menu</i>
             </a>
             <ul class="right hide-on-med-and-down">
                 <li><a href="/">Home</a></li>
                 <li><a href="/favorites">Favorites</a></li>
-                <li><a href="#">Calendar</a></li>
+                <li><a href="/calendar">Calendar</a></li>
                 <!-- <li><a href="#login" id="navbar-login-top" class="modal-trigger valign-wrapper">Login
                         <i class="material-icons right">person</i></a>
                 </li> -->

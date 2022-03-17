@@ -4,7 +4,6 @@
         <div class="card-image">
             <img id="recipe-image" class="food-image" :src="image" alt="">
             <a 
-            href="#!" 
             class="favorite-btn btn-floating halfway-fab" 
             :class="favedClass"
             @click="toggleFaved">
@@ -40,8 +39,8 @@
             </div>
         </div>
         <div class="card-action">
-            <a href="#!" class="ingredients-btn" @click="toggleShowIngredients">Ingredients</a>
-            <a href="#!" class="instructions-btn" @click="toggleShowInstructions">Instructions</a>
+            <a class="ingredients-btn" @click="toggleShowIngredients">Ingredients</a>
+            <a class="instructions-btn" @click="toggleShowInstructions">Instructions</a>
         </div>
     </div>
     <!-- End recipe Card -->

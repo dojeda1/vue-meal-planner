@@ -72,7 +72,7 @@ export default {
     }
     @media only screen and (max-width: 600px) {
         .recipe-cards {
-            columns: 2;
+            columns: 1;
         }
     }
 </style>

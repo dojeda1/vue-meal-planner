@@ -29,10 +29,19 @@ export const addRecipe = (id, recipe) => {
         })
 }
 
-// export const getRecipe = async id => {
-//     const recipe = await recipeCollection.doc(id).get()
-//     return recipe.exists ? recipe.data() : null
-// }
+export const getRecipe = (id) => {
+    const recipe = ref({})
+    recipeCollection.doc(id).get()
+        .then(doc => {
+            recipe.value = doc.data()
+        }).catch(e => {
+            console.log('err:', e)
+            recipe.value = {
+                id: 'empty'
+            }
+        })
+    return recipe
+}
 
 export const deleteRecipe = id => {
     recipeCollection.doc(id).delete()

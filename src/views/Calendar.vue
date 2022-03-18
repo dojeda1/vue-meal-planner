@@ -15,7 +15,6 @@
                         <h5>Meal</h5>
                     </div>
                 </div>
-
                 <div class="col s8ths s1 box-title">
                     <h5>S<span class="xtra-info">un</span></h5>
                 </div>
@@ -42,37 +41,37 @@
                 <div class="xtra-info">
                     <div class=" col s8ths s1 box-side"><b>Breakfast</b></div>
                 </div>
-                <div id="bSun" data-target="food-card" class="col s8ths s1 box" data-filled="false"></div>
-                <div id="bMon" data-target="food-card" class="col s8ths s1 box" data-filled="false"></div>
-                <div id="bTue" data-target="food-card" class="col s8ths s1 box" data-filled="false"></div>
-                <div id="bWed" data-target="food-card" class="col s8ths s1 box" data-filled="false"></div>
-                <div id="bThu" data-target="food-card" class="col s8ths s1 box" data-filled="false"></div>
-                <div id="bFri" data-target="food-card" class="col s8ths s1 box" data-filled="false"></div>
-                <div id="bSat" data-target="food-card" class="col s8ths s1 box" data-filled="false"></div>
+                <CalendarDay :recipe="calendar.sun.breakfast" @click="clickDayRecipe('sun','breakfast')"/>
+                <CalendarDay :recipe="calendar.mon.breakfast" @click="clickDayRecipe('mon','breakfast')"/>
+                <CalendarDay :recipe="calendar.tue.breakfast" @click="clickDayRecipe('tue','breakfast')"/>
+                <CalendarDay :recipe="calendar.wed.breakfast" @click="clickDayRecipe('wed','breakfast')"/>
+                <CalendarDay :recipe="calendar.thu.breakfast" @click="clickDayRecipe('thu','breakfast')"/>
+                <CalendarDay :recipe="calendar.fri.breakfast" @click="clickDayRecipe('fri','breakfast')"/>
+                <CalendarDay :recipe="calendar.sat.breakfast" @click="clickDayRecipe('sat','breakfast')"/>
             </div>
             <div class="meal-row row light-green lighten-4">
                 <div class="xtra-info">
                     <div class=" col s8ths s1 box-side"><b>Lunch</b></div>
                 </div>
-                <div id="lSun" data-target="food-card" class="col s8ths s1 box" data-filled="false"></div>
-                <div id="lMon" data-target="food-card" class="col s8ths s1 box" data-filled="false"></div>
-                <div id="lTue" data-target="food-card" class="col s8ths s1 box" data-filled="false"></div>
-                <div id="lWed" data-target="food-card" class="col s8ths s1 box" data-filled="false"></div>
-                <div id="lThu" data-target="food-card" class="col s8ths s1 box" data-filled="false"></div>
-                <div id="lFri" data-target="food-card" class="col s8ths s1 box" data-filled="false"></div>
-                <div id="lSat" data-target="food-card" class="col s8ths s1 box" data-filled="false"></div>
+                <CalendarDay :recipe="calendar.sun.lunch" @click="clickDayRecipe('sun','lunch')"/>
+                <CalendarDay :recipe="calendar.mon.lunch" @click="clickDayRecipe('mon','lunch')"/>
+                <CalendarDay :recipe="calendar.tue.lunch" @click="clickDayRecipe('tue','lunch')"/>
+                <CalendarDay :recipe="calendar.wed.lunch" @click="clickDayRecipe('wed','lunch')"/>
+                <CalendarDay :recipe="calendar.thu.lunch" @click="clickDayRecipe('thu','lunch')"/>
+                <CalendarDay :recipe="calendar.fri.lunch" @click="clickDayRecipe('fri','lunch')"/>
+                <CalendarDay :recipe="calendar.sat.lunch" @click="clickDayRecipe('sat','lunch')"/>
             </div>
             <div class="meal-row row light-green lighten-5">
                 <div class="xtra-info">
                     <div class=" col s8ths s1 box-side"><b>Dinner</b></div>
                 </div>
-                <div id="dSun" data-target="food-card" class="col s8ths s1 box" data-filled="false"></div>
-                <div id="dMon" data-target="food-card" class="col s8ths s1 box" data-filled="false"></div>
-                <div id="dTue" data-target="food-card" class="col s8ths s1 box" data-filled="false"></div>
-                <div id="dWed" data-target="food-card" class="col s8ths s1 box" data-filled="false"></div>
-                <div id="dThu" data-target="food-card" class="col s8ths s1 box" data-filled="false"></div>
-                <div id="dFri" data-target="food-card" class="col s8ths s1 box" data-filled="false"></div>
-                <div id="dSat" data-target="food-card" class="col s8ths s1 box" data-filled="false"></div>
+                <CalendarDay :recipe="calendar.sun.dinner" @click="clickDayRecipe('sun','dinner')"/>
+                <CalendarDay :recipe="calendar.mon.dinner" @click="clickDayRecipe('mon','dinner')"/>
+                <CalendarDay :recipe="calendar.tue.dinner" @click="clickDayRecipe('tue','dinner')"/>
+                <CalendarDay :recipe="calendar.wed.dinner" @click="clickDayRecipe('wed','dinner')"/>
+                <CalendarDay :recipe="calendar.thu.dinner" @click="clickDayRecipe('thu','dinner')"/>
+                <CalendarDay :recipe="calendar.fri.dinner" @click="clickDayRecipe('fri','dinner')"/>
+                <CalendarDay :recipe="calendar.sat.dinner" @click="clickDayRecipe('sat','dinner')"/>
             </div>
 
             <a id="savePlan" class="waves-effect waves-light btn light-green right section">Save Plan</a>
@@ -87,7 +86,7 @@
                 <h3 class="font2 orange-text text-lighten-1">Recipes</h3>
                 <div id="recipe-collection" class="collection">
                     <a id="empty" class="listed-food-recipe collection-item"
-                    :class="{active: activeItem('empty')}"
+                    :class="{active: noRecipe()}"
                     @click="selectRecipe('empty')"
                     >
                         - Empty -
@@ -118,6 +117,7 @@
 <script>
 import HeroBanner from '../components/HeroBanner.vue'
 import RecipeCard from '../components/RecipeCard.vue'
+import CalendarDay from '../components/CalendarDay.vue'
 import FoodJoke from '../components/FoodJoke.vue'
 import { getRecipe } from '../firebase'
 // import HelloWorld from './components/HelloWorld.vue'
@@ -127,6 +127,7 @@ export default {
     components: {
         HeroBanner,
         RecipeCard,
+        CalendarDay,
         FoodJoke
     },
     props: {
@@ -142,9 +143,45 @@ export default {
     data() {
         return {
             showRecipes: false,
-            currentRecipe: {
-                    id: 'empty'
+            currentRecipe: {},
+            calendar: {
+                sun: {
+                    breakfast: {},
+                    lunch: {},
+                    dinner: {}
                 },
+                mon: {
+                    breakfast: {},
+                    lunch: {},
+                    dinner: {}
+                },
+                tue: {
+                    breakfast: {},
+                    lunch: {},
+                    dinner: {}
+                },
+                wed: {
+                    breakfast: {},
+                    lunch: {},
+                    dinner: {}
+                },
+                thu: {
+                    breakfast: {},
+                    lunch: {},
+                    dinner: {}
+                },
+                fri: {
+                    breakfast: {},
+                    lunch: {},
+                    dinner: {}
+                },
+                sat: {
+                    breakfast: {},
+                    lunch: {},
+                    dinner: {}
+                }
+            },
+            searching: false
         }
     },
     methods: {
@@ -152,22 +189,32 @@ export default {
             this.showRecipes = !this.showRecipes
         },
         activeItem(id) {
-            console.log('id: ', id, ':', this.currentRecipe);
+            // console.log('id: ', id, ':', this.currentRecipe);
             return this?.currentRecipe?.id == id
+        },
+        noRecipe() {
+            console.log('this?.currentRecipe?.id: ', this?.currentRecipe?.id);
+            return !this?.currentRecipe?.id
         },
         selectRecipe(id) {
             if (id == 'empty') {
-                this.currentRecipe = {
-                    id: 'empty'
-                }
+                this.currentRecipe = {}
             } else {
-                console.log('hey')
+                this.searching = true
                 this.currentRecipe = getRecipe(id.toString())
+            }
+        },
+        clickDayRecipe(day, meal) {
+            console.log('click day')
+            if (this.showRecipes) {
+                this.calendar[day][meal] = this.currentRecipe
+            } else {
+                console.log('no change')
             }
         }
     },
     mounted() {
-        console.log('A', this.favorites)
+        // console.log('favorites:', this.favorites)
     }
 }
 </script>

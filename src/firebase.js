@@ -36,9 +36,7 @@ export const getRecipe = (id) => {
             recipe.value = doc.data()
         }).catch(e => {
             console.log('err:', e)
-            recipe.value = {
-                id: 'empty'
-            }
+            recipe.value = {}
         })
     return recipe
 }

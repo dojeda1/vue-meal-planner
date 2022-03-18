@@ -30,11 +30,9 @@ export default {
             }
             try {
                 var res = await axios.get(queryURL, config)
-                console.log('res: ', res);
                 this.joke = res?.data?.text
-                console.log('Y: ', this.joke);
-            } catch (error) {
-                console.log('N: ', this.joke);
+            } catch (e) {
+                console.log('err:', e);
             }
         }
     },

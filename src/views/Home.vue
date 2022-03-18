@@ -28,7 +28,7 @@ export default {
         }
     },
     mounted() {
-        console.log('--&--', this.idList)
+        // console.log('idList', this.idList)
     }
 }
 

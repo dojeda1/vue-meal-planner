@@ -120,7 +120,7 @@ export default {
         }
     },
     mounted() {
-        console.log('Rec:', this.recipe)
+        // console.log('Rec:', this.recipe)
     }
 }
 </script>

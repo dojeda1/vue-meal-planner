@@ -99,10 +99,9 @@ export default {
             try {
                 var res = await axios.get(queryURL, config)
                 this.recipes = res?.data?.results
-                console.log('Y: ', this.recipes);
                 this.selectFirstItem()
-            } catch (error) {
-                console.log('N: ', this.recipes);
+            } catch (e) {
+                console.log('err:', e);
             }
         },
         async getRecipe(id) {
@@ -116,9 +115,8 @@ export default {
             try {
                 var res = await axios.get(queryURL, config)
                 this.currentRecipe = res?.data
-                console.log('Y: ', this.currentRecipe);
-            } catch (error) {
-                console.log('N: ', this.currentRecipe);
+            } catch (e) {
+                console.log('err:', e);
             }
         },
         toggleShowRefineOptions() {

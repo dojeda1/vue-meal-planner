@@ -1,10 +1,7 @@
 <template>
-    <div class="col s8ths s1 box modal-trigger" :style="dayStyle">
+    <div class="col s8ths s1 box" :class="{edit: edit}" :style="dayStyle">
         <p class="section truncate">{{title}}</p>
     </div>
-    <!-- <div id="bMon" data-target="food-card" class="col s8ths s1 box modal-trigger" data-filled="true" style="background-image: url('https://spoonacular.com/recipeImages/563403-556x370.jpg'); background-color: rgb(191, 191, 191); background-blend-mode: multiply;">
-        <p class="section truncate">Peach Coconut Milk Smoothie</p>
-    </div> -->
 </template>
 
 <script>
@@ -16,6 +13,10 @@ export default {
         recipe: {
             type: Object,
             default: () => {}
+        },
+        edit: {
+            type: Boolean,
+            default: false
         }
     },
     data() {
@@ -51,5 +52,7 @@ export default {
 </script>
 
 <style>
-
+    .box.edit {
+        border: 1px solid #ff9800;
+    }
 </style>

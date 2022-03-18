@@ -41,46 +41,49 @@
                 <div class="xtra-info">
                     <div class=" col s8ths s1 box-side"><b>Breakfast</b></div>
                 </div>
-                <CalendarDay :recipe="calendar.sun.breakfast" @click="clickDayRecipe('sun','breakfast')"/>
-                <CalendarDay :recipe="calendar.mon.breakfast" @click="clickDayRecipe('mon','breakfast')"/>
-                <CalendarDay :recipe="calendar.tue.breakfast" @click="clickDayRecipe('tue','breakfast')"/>
-                <CalendarDay :recipe="calendar.wed.breakfast" @click="clickDayRecipe('wed','breakfast')"/>
-                <CalendarDay :recipe="calendar.thu.breakfast" @click="clickDayRecipe('thu','breakfast')"/>
-                <CalendarDay :recipe="calendar.fri.breakfast" @click="clickDayRecipe('fri','breakfast')"/>
-                <CalendarDay :recipe="calendar.sat.breakfast" @click="clickDayRecipe('sat','breakfast')"/>
+                <CalendarDay :edit="showRecipes" :recipe="validDay('sun','breakfast')" @click="clickDayRecipe('sun','breakfast')"/>
+                <CalendarDay :edit="showRecipes" :recipe="validDay('mon','breakfast')" @click="clickDayRecipe('mon','breakfast')"/>
+                <CalendarDay :edit="showRecipes" :recipe="validDay('tue','breakfast')" @click="clickDayRecipe('tue','breakfast')"/>
+                <CalendarDay :edit="showRecipes" :recipe="validDay('wed','breakfast')" @click="clickDayRecipe('wed','breakfast')"/>
+                <CalendarDay :edit="showRecipes" :recipe="validDay('thu','breakfast')" @click="clickDayRecipe('thu','breakfast')"/>
+                <CalendarDay :edit="showRecipes" :recipe="validDay('fri','breakfast')" @click="clickDayRecipe('fri','breakfast')"/>
+                <CalendarDay :edit="showRecipes" :recipe="validDay('sat','breakfast')" @click="clickDayRecipe('sat','breakfast')"/>
             </div>
             <div class="meal-row row light-green lighten-4">
                 <div class="xtra-info">
                     <div class=" col s8ths s1 box-side"><b>Lunch</b></div>
                 </div>
-                <CalendarDay :recipe="calendar.sun.lunch" @click="clickDayRecipe('sun','lunch')"/>
-                <CalendarDay :recipe="calendar.mon.lunch" @click="clickDayRecipe('mon','lunch')"/>
-                <CalendarDay :recipe="calendar.tue.lunch" @click="clickDayRecipe('tue','lunch')"/>
-                <CalendarDay :recipe="calendar.wed.lunch" @click="clickDayRecipe('wed','lunch')"/>
-                <CalendarDay :recipe="calendar.thu.lunch" @click="clickDayRecipe('thu','lunch')"/>
-                <CalendarDay :recipe="calendar.fri.lunch" @click="clickDayRecipe('fri','lunch')"/>
-                <CalendarDay :recipe="calendar.sat.lunch" @click="clickDayRecipe('sat','lunch')"/>
+                <CalendarDay :edit="showRecipes" :recipe="validDay('sun','lunch')" @click="clickDayRecipe('sun','lunch')"/>
+                <CalendarDay :edit="showRecipes" :recipe="validDay('mon','lunch')" @click="clickDayRecipe('mon','lunch')"/>
+                <CalendarDay :edit="showRecipes" :recipe="validDay('tue','lunch')" @click="clickDayRecipe('tue','lunch')"/>
+                <CalendarDay :edit="showRecipes" :recipe="validDay('wed','lunch')" @click="clickDayRecipe('wed','lunch')"/>
+                <CalendarDay :edit="showRecipes" :recipe="validDay('thu','lunch')" @click="clickDayRecipe('thu','lunch')"/>
+                <CalendarDay :edit="showRecipes" :recipe="validDay('fri','lunch')" @click="clickDayRecipe('fri','lunch')"/>
+                <CalendarDay :edit="showRecipes" :recipe="validDay('sat','lunch')" @click="clickDayRecipe('sat','lunch')"/>
             </div>
             <div class="meal-row row light-green lighten-5">
                 <div class="xtra-info">
                     <div class=" col s8ths s1 box-side"><b>Dinner</b></div>
                 </div>
-                <CalendarDay :recipe="calendar.sun.dinner" @click="clickDayRecipe('sun','dinner')"/>
-                <CalendarDay :recipe="calendar.mon.dinner" @click="clickDayRecipe('mon','dinner')"/>
-                <CalendarDay :recipe="calendar.tue.dinner" @click="clickDayRecipe('tue','dinner')"/>
-                <CalendarDay :recipe="calendar.wed.dinner" @click="clickDayRecipe('wed','dinner')"/>
-                <CalendarDay :recipe="calendar.thu.dinner" @click="clickDayRecipe('thu','dinner')"/>
-                <CalendarDay :recipe="calendar.fri.dinner" @click="clickDayRecipe('fri','dinner')"/>
-                <CalendarDay :recipe="calendar.sat.dinner" @click="clickDayRecipe('sat','dinner')"/>
+                <CalendarDay :edit="showRecipes" :recipe="validDay('sun','dinner')" @click="clickDayRecipe('sun','dinner')"/>
+                <CalendarDay :edit="showRecipes" :recipe="validDay('mon','dinner')" @click="clickDayRecipe('mon','dinner')"/>
+                <CalendarDay :edit="showRecipes" :recipe="validDay('tue','dinner')" @click="clickDayRecipe('tue','dinner')"/>
+                <CalendarDay :edit="showRecipes" :recipe="validDay('wed','dinner')" @click="clickDayRecipe('wed','dinner')"/>
+                <CalendarDay :edit="showRecipes" :recipe="validDay('thu','dinner')" @click="clickDayRecipe('thu','dinner')"/>
+                <CalendarDay :edit="showRecipes" :recipe="validDay('fri','dinner')" @click="clickDayRecipe('fri','dinner')"/>
+                <CalendarDay :edit="showRecipes" :recipe="validDay('sat','dinner')" @click="clickDayRecipe('sat','dinner')"/>
             </div>
-
-            <a id="savePlan" class="waves-effect waves-light btn light-green right section">Save Plan</a>
-            <a id="searchFavs" class="waves-effect waves-light btn orange right section"
-            @click="toggleShowRecipes"
-            >
-                <span v-if="!showRecipes">Edit Meal Plan</span>
-                <span v-else>Close</span>
-            </a>
+            <div class="right-align">
+                <a id="searchFavs" class="waves-effect waves-light btn orange section"
+                @click="toggleShowRecipes"
+                >
+                    <span v-if="!showRecipes">Edit Meal Plan</span>
+                    <span v-else>Close</span>
+                </a>
+                <a id="savePlan" class="waves-effect waves-light btn light-green section"
+                @click="saveCalendar"
+                >Save Plan</a>
+            </div>
 
             <div id="recipe-list" class="col s12 m12 l6" v-show="showRecipes">
                 <h3 class="font2 orange-text text-lighten-1">Recipes</h3>
@@ -110,8 +113,8 @@
         </div>
 
     </div>
-    <RecipeCard/>
     <FoodJoke/>
+    <RecipeCard/>
 </template>
 
 <script>
@@ -119,7 +122,7 @@ import HeroBanner from '../components/HeroBanner.vue'
 import RecipeCard from '../components/RecipeCard.vue'
 import CalendarDay from '../components/CalendarDay.vue'
 import FoodJoke from '../components/FoodJoke.vue'
-import { getRecipe } from '../firebase'
+import { getRecipe, addWeek, getWeek, weekStructure } from '../firebase'
 // import HelloWorld from './components/HelloWorld.vue'
 
 export default {
@@ -144,48 +147,13 @@ export default {
         return {
             showRecipes: false,
             currentRecipe: {},
-            calendar: {
-                sun: {
-                    breakfast: {},
-                    lunch: {},
-                    dinner: {}
-                },
-                mon: {
-                    breakfast: {},
-                    lunch: {},
-                    dinner: {}
-                },
-                tue: {
-                    breakfast: {},
-                    lunch: {},
-                    dinner: {}
-                },
-                wed: {
-                    breakfast: {},
-                    lunch: {},
-                    dinner: {}
-                },
-                thu: {
-                    breakfast: {},
-                    lunch: {},
-                    dinner: {}
-                },
-                fri: {
-                    breakfast: {},
-                    lunch: {},
-                    dinner: {}
-                },
-                sat: {
-                    breakfast: {},
-                    lunch: {},
-                    dinner: {}
-                }
-            },
+            calendar: weekStructure,
             searching: false
         }
     },
     methods: {
         toggleShowRecipes() {
+            this.selectRecipe('empty')
             this.showRecipes = !this.showRecipes
         },
         activeItem(id) {
@@ -204,6 +172,13 @@ export default {
                 this.currentRecipe = getRecipe(id.toString())
             }
         },
+        validDay(day, meal) {
+            if (this.calendar[day] && this.calendar[day][meal]) {
+                return this.calendar[day][meal]
+            } else {
+                return {}
+            }
+        },
         clickDayRecipe(day, meal) {
             console.log('click day')
             if (this.showRecipes) {
@@ -211,10 +186,14 @@ export default {
             } else {
                 console.log('no change')
             }
+        },
+        saveCalendar() {
+            addWeek('week',this.calendar)
         }
     },
     mounted() {
         // console.log('favorites:', this.favorites)
+        this.calendar = getWeek('week')
     }
 }
 </script>

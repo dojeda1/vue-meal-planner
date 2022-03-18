@@ -19,11 +19,12 @@ const firebaseApp = firebase.initializeApp(config)
 
 export const db = firebaseApp.firestore()
 const recipeCollection = db.collection('recipes')
+const calendarCollection = db.collection('calendar')
 
 export const addRecipe = (id, recipe) => {
     recipeCollection.doc(id).set(recipe)
         .then(doc => {
-            alert('Data added ' + doc.id)
+            console.log('Data added ' + doc.id)
         }).catch(e => {
             console.log('err:', e)
         })
@@ -33,6 +34,7 @@ export const getRecipe = (id) => {
     const recipe = ref({})
     recipeCollection.doc(id).get()
         .then(doc => {
+            console.log('Data found ' + doc.id)
             recipe.value = doc.data()
         }).catch(e => {
             console.log('err:', e)
@@ -44,7 +46,7 @@ export const getRecipe = (id) => {
 export const deleteRecipe = id => {
     recipeCollection.doc(id).delete()
         .then(doc => {
-            alert('Data deleted ' + doc.id)
+            console.log('Data deleted ' + doc.id)
         }).catch(e => {
             console.log('err:', e)
         })
@@ -59,4 +61,64 @@ export const useLoadRecipes = (cb) => {
     })
     onUnmounted(close)
     return recipes
+}
+
+export const addWeek = (id, week) => {
+    calendarCollection.doc(id).set(week)
+        .then(doc => {
+            console.log('Data added ' + doc.id)
+        }).catch(e => {
+            console.log('err:', e)
+        })
+}
+
+export const getWeek = (id) => {
+    const week = ref({})
+    calendarCollection.doc(id).get()
+        .then(doc => {
+            console.log('Data found ' + doc.id)
+            week.value = doc.data()
+        }).catch(e => {
+            console.log('err:', e)
+            week.value = weekStructure
+        })
+    return week
+}
+
+export const weekStructure = {
+    sun: {
+        breakfast: {},
+        lunch: {},
+        dinner: {}
+    },
+    mon: {
+        breakfast: {},
+        lunch: {},
+        dinner: {}
+    },
+    tue: {
+        breakfast: {},
+        lunch: {},
+        dinner: {}
+    },
+    wed: {
+        breakfast: {},
+        lunch: {},
+        dinner: {}
+    },
+    thu: {
+        breakfast: {},
+        lunch: {},
+        dinner: {}
+    },
+    fri: {
+        breakfast: {},
+        lunch: {},
+        dinner: {}
+    },
+    sat: {
+        breakfast: {},
+        lunch: {},
+        dinner: {}
+    }
 }

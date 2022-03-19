@@ -37,7 +37,7 @@ export default {
         }
     },
     mounted() {
-        // this.getTrivia()
+        this.getTrivia()
     }
 }
 </script>

@@ -37,7 +37,7 @@ export default {
         }
     },
     mounted() {
-        // this.getJoke()
+        this.getJoke()
     }
 }
 </script>

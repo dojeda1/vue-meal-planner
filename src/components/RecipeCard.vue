@@ -39,8 +39,8 @@
             </div>
         </div>
         <div class="card-action">
-            <a class="ingredients-btn" @click="toggleShowIngredients">Ingredients</a>
-            <a class="instructions-btn" @click="toggleShowInstructions">Instructions</a>
+            <a class="bottom-btn" @click="toggleShowIngredients">Ingredients</a>
+            <a class="bottom-btn" @click="toggleShowInstructions">Instructions</a>
         </div>
     </div>
     <!-- End recipe Card -->
@@ -85,7 +85,9 @@ export default {
             return this.recipe?.extendedIngredients || null
         },
         instructions() {
-            return this.recipe?.analyzedInstructions[0]?.steps || this.recipe?.instructions || 'N/A'
+            console.log('this.recipe: ', this.recipe);
+            return (this.recipe?.analyzedInstructions && this.recipe?.analyzedInstructions[0]?.steps) || this.recipe?.instructions || 'N/A'
+            // return "N/A"
         },
         faved() {
             return this.idList.includes(this.id)
@@ -131,8 +133,10 @@ export default {
         height: 40px;
         margin: 10px;
     }
-
     nav {
         height: 60px;
+    }
+    .bottom-btn {
+        cursor: pointer;
     }
 </style>

@@ -106,21 +106,21 @@
                     </span>
                 </div>
             </div>
-            <div style="text-align:center">
-                <img id="quotespace"/>
-            </div>
-
         </div>
-
     </div>
     <FoodJoke/>
-    <RecipeCard/>
+    <RecipeModal 
+        @hide-modal="toggleShowModal"
+        :showModal="showModal" 
+        :recipe="modalRecipe"
+        :idList="idList"
+    />
 </template>
 
 <script>
 import HeroBanner from '../components/HeroBanner.vue'
-import RecipeCard from '../components/RecipeCard.vue'
 import CalendarDay from '../components/CalendarDay.vue'
+import RecipeModal from '../components/RecipeModal.vue'
 import FoodJoke from '../components/FoodJoke.vue'
 import { getRecipe, addWeek, getWeek, weekStructure } from '../firebase'
 // import HelloWorld from './components/HelloWorld.vue'
@@ -129,8 +129,8 @@ export default {
     name: 'Calendar',
     components: {
         HeroBanner,
-        RecipeCard,
         CalendarDay,
+        RecipeModal,
         FoodJoke
     },
     props: {
@@ -146,10 +146,10 @@ export default {
     data() {
         return {
             showRecipes: false,
+            showModal: false,
             currentRecipe: {},
-            calendar: weekStructure,
-            searching: false
-        }
+            modalRecipe: {},
+            calendar: weekStructure        }
     },
     methods: {
         toggleShowRecipes() {
@@ -168,8 +168,14 @@ export default {
             if (id == 'empty') {
                 this.currentRecipe = {}
             } else {
-                this.searching = true
                 this.currentRecipe = getRecipe(id.toString())
+            }
+        },
+        selectModalRecipe(id) {
+            if (id == 'empty') {
+                this.modalRecipe = {}
+            } else {
+                this.modalRecipe = getRecipe(id.toString())
             }
         },
         validDay(day, meal) {
@@ -183,12 +189,23 @@ export default {
             console.log('click day')
             if (this.showRecipes) {
                 this.calendar[day][meal] = this.currentRecipe
+            } else if (this.validDay(day, meal)) {
+                if (this.calendar[day][meal]?.id) {
+                    this.selectModalRecipe(this.calendar[day][meal].id)
+                    this.toggleShowModal()
+                } else {
+                    this.selectModalRecipe('empty')
+                }
             } else {
                 console.log('no change')
             }
         },
         saveCalendar() {
             addWeek('week',this.calendar)
+        },
+        toggleShowModal() {
+            console.log('toggle Modal')
+            this.showModal = !this.showModal
         }
     },
     mounted() {
@@ -255,7 +272,6 @@ export default {
     .box {
         color: white;
         font-weight: bold;
-        cursor: pointer;
         padding: 2px !important;
         /* Center and scale the image nicely */
         background-position: center;

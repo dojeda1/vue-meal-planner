@@ -51,7 +51,7 @@ export default {
         }
     },
     mounted() {
-        // this.getQuote()
+        this.getQuote()
     }
 }
 </script>

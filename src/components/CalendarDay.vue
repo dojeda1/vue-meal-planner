@@ -37,7 +37,8 @@ export default {
                 style = {
                     'background-image': `url('${this.image}')`,
                     'background-color': 'rgb(191, 191, 191)',
-                    'background-blend-mode': 'multiply'
+                    'background-blend-mode': 'multiply',
+                    cursor: 'pointer'
                 }
             } else {
                 style = {}
@@ -54,5 +55,6 @@ export default {
 <style>
     .box.edit {
         border: 1px solid #ff9800;
+        cursor: pointer;
     }
 </style>

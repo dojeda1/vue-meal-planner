@@ -61,11 +61,9 @@ export default {
     #quotespace {
         width: 100%;
     }
-
     .round-corners {
         border-radius: 30px;
     }
-
     .leaf {
         width: 50%;
     }

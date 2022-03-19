@@ -44,7 +44,6 @@ export default {
     },
     methods: {
         hideModal() {
-            console.log('Emit Hide')
             this.$emit('hide-modal')
         }
     },

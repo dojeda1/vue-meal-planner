@@ -157,11 +157,9 @@ export default {
             this.showRecipes = !this.showRecipes
         },
         activeItem(id) {
-            // console.log('id: ', id, ':', this.currentRecipe);
             return this?.currentRecipe?.id == id
         },
         noRecipe() {
-            console.log('this?.currentRecipe?.id: ', this?.currentRecipe?.id);
             return !this?.currentRecipe?.id
         },
         selectRecipe(id) {
@@ -186,7 +184,6 @@ export default {
             }
         },
         clickDayRecipe(day, meal) {
-            console.log('click day')
             if (this.showRecipes) {
                 this.calendar[day][meal] = this.currentRecipe
             } else if (this.validDay(day, meal)) {
@@ -197,46 +194,23 @@ export default {
                     this.selectModalRecipe('empty')
                 }
             } else {
-                console.log('no change')
+                //do nothing
             }
         },
         saveCalendar() {
             addWeek('week',this.calendar)
         },
         toggleShowModal() {
-            console.log('toggle Modal')
             this.showModal = !this.showModal
         }
     },
     mounted() {
-        // console.log('favorites:', this.favorites)
         this.calendar = getWeek('week')
     }
 }
 </script>
 
 <style>
-    /* .recipe-cards {
-        columns: 3;
-        overflow: visible;
-    }
-    .recipe-card {
-        padding: 8px 0;
-        break-inside: avoid;
-    }
-    .recipe-card .card{
-        margin: 0;
-    }
-    @media only screen and (max-width: 1200px) {
-        .recipe-cards {
-            columns: 2;
-        }
-    }
-    @media only screen and (max-width: 600px) {
-        .recipe-cards {
-            columns: 1;
-        }
-    } */
     .food-pic {
         width: 100%;
         height: 80%;
@@ -303,7 +277,7 @@ export default {
     }
 
     .row .col.s8ths {
-        width: 14.2857142857%;
+        width: calc(100%/7);
     }
 
     .xtra-info {

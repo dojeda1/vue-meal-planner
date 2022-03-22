@@ -124,6 +124,7 @@ import RecipeModal from '../components/RecipeModal.vue'
 import FoodJoke from '../components/FoodJoke.vue'
 import { getRecipe, addWeek, getWeek, weekStructure } from '../firebase'
 // import HelloWorld from './components/HelloWorld.vue'
+import axios from 'axios'
 
 export default {
     name: 'Calendar',
@@ -162,6 +163,21 @@ export default {
         noRecipe() {
             return !this?.currentRecipe?.id
         },
+        async getSpoonacularRecipe(id) {
+            // event.preventDefault()
+            var queryURL = `https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/${id}/information`;
+            const config = {
+                headers: {
+                    "X-RapidAPI-Key": process.env.VUE_APP_SPOONACULAR_API_KEY
+                }
+            }
+            try {
+                var res = await axios.get(queryURL, config)
+                this.modalRecipe = res?.data
+            } catch (e) {
+                console.log('err:', e);
+            }
+        },
         selectRecipe(id) {
             if (id == 'empty') {
                 this.currentRecipe = {}
@@ -173,7 +189,11 @@ export default {
             if (id == 'empty') {
                 this.modalRecipe = {}
             } else {
-                this.modalRecipe = getRecipe(id.toString())
+                if (this.idList.includes(id)) {
+                    this.modalRecipe = getRecipe(id.toString())
+                } else {
+                    this.getSpoonacularRecipe(id)
+                }
             }
         },
         validDay(day, meal) {

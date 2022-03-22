@@ -13,22 +13,44 @@
                         @click="getRecipes()"
                         >Search<i
                             class="material-icons right">search</i></button>
-                    <a id="refine-btn" class="btn-flat orange-text text-lighten-1" @click="toggleShowRefineOptions()">Refine</a>
+                    <a id="refine-btn" class="btn-flat orange-text text-lighten-1" @click="toggleShowRefineOptions()">
+                        <span v-if="!showRefineOptions">Refine</span>
+                        <span v-else>Hide Filters</span>
+                    </a>
                 </div>
             </form>
         </div>
         <div id="more-options" class="row" v-show="showRefineOptions">
-            <div class="input-field col s6 m4">
-                <select class="col">
-                    <option value="">None</option>
-                    <option value="Gluten Free">Gluten Free</option>
-                    <option value="Dairy Free">Dairy Free</option>
-                    <option value="Paleo">Paleo</option>
-                    <option value="Vegetarian">Vegetarian</option>
-                    <option value="Vegan">Vegan</option>
-                </select>
-                <label>Dietary Restrictions</label>
-            </div>
+            <button class="btn waves-effect waves-light valign-wrapper"
+                :class="activefilter('Gluten Free') ? 'orange' : 'grey'"
+                @click="setRefine('Gluten Free')"
+            >
+                Gluten Free
+            </button>
+            <button class="btn waves-effect waves-light valign-wrapper"
+                :class=" activefilter('Dairy Free') ? 'orange' : 'grey'"
+                @click="setRefine('Dairy Free')"
+            >
+                Dairy Free
+            </button>
+            <button class="btn waves-effect waves-light valign-wrapper"
+                :class="activefilter('Paleo') ? 'orange' : 'grey'"
+                @click="setRefine('Paleo')"
+            >
+                Paleo
+            </button>
+            <button class="btn waves-effect waves-light valign-wrapper"
+                :class="activefilter('Vegetarian') ? 'orange' : 'grey'"
+                @click="setRefine('Vegetarian')"
+            >
+                Vegetarian
+            </button>
+            <button class="btn waves-effect waves-light valign-wrapper"
+                :class="activefilter('Vegan') ? 'orange' : 'grey'"
+                @click="setRefine('Vegan')"
+            >
+                Vegan
+            </button>
         </div>
         <!-- End Search Bar -->
 
@@ -39,6 +61,7 @@
             </div>
 
             <!-- List of meals -->
+            <template v-if="recipes.length">
             <div id="recipe-list" class="col s12 m12 l6">
                 <div id="recipe-area" class="collection text-green">
                     <a v-for="(recipe, index) in recipes"
@@ -51,6 +74,8 @@
                     </a>
                 </div>
             </div>
+            </template>
+            <p v-else>No Results</p>
             <!-- End Meal List -->
             <div class="col m12 l6">
                 <RecipeCard
@@ -120,10 +145,21 @@ export default {
             }
         },
         toggleShowRefineOptions() {
+            this.refine = ''
             this.showRefineOptions = !this.showRefineOptions
         },
         activeItem(id) {
             return this?.currentRecipe?.id == id
+        },
+        activefilter(diet) {
+            return this?.refine == diet
+        },
+        setRefine(diet) {
+            if (this.refine != diet) {
+                this.refine = diet
+            } else {
+                this.refine = ''
+            }
         },
         selectFirstItem() {
             const id = this?.recipes[0]?.id
@@ -137,5 +173,9 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-
+    #more-options {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+    }
 </style>

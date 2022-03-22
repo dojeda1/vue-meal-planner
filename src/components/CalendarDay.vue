@@ -36,7 +36,7 @@ export default {
             if (this.title) {
                 style = {
                     'background-image': `url('${this.image}')`,
-                    'background-color': 'rgb(191, 191, 191)',
+                    'background-color': 'rgba(0, 0, 0, .3)',
                     'background-blend-mode': 'multiply',
                     cursor: 'pointer'
                 }

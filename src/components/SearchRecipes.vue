@@ -61,7 +61,7 @@
             </div>
 
             <!-- List of meals -->
-            <template v-if="recipes.length">
+            <template v-if="hasRecipes">
             <div id="recipe-list" class="col s12 m12 l6">
                 <div id="recipe-area" class="collection text-green">
                     <a v-for="(recipe, index) in recipes"
@@ -77,7 +77,7 @@
             </template>
             <p v-else>No Results</p>
             <!-- End Meal List -->
-            <div class="col m12 l6">
+            <div class="col m12 l6" v-if="hasRecipes">
                 <RecipeCard
                     v-if="currentRecipe"
                     :recipe="currentRecipe"
@@ -110,6 +110,11 @@ export default {
             refine: '',
             currentRecipe: null,
             recipes: null
+        }
+    },
+    computed: {
+        hasRecipes() {
+            return this.recipes && this.recipes.length > 0
         }
     },
     methods: {
